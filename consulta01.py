@@ -24,14 +24,16 @@ session = Session()
 # de Arte. En función de la entrega, presentar, nombre del tarea, nombre del
 # estudiante, calificación, nombre de instructor y nombre del departamento
 
-entregas = session.query(Entrega).join(Tarea).join(Curso).join(Departamento).filter(Departamento.nombre == "Arte")
+# entregas = session.query(Entrega).join(Tarea).join(Curso).join(Departamento).filter(Departamento.nombre == "Arte").all()
+entregas = session.query(Entrega).all()
 
 print("Consulta 01")
 
 for e in entregas:
-    print(f"Tarea: {e.tarea.titulo}\n" +
-          f"Hecha por: {e.estudiante.nombre}\n" +
-          f"Calificación: {e.calificacion}\n" +
-          f"Instructor: {e.tarea.curso.instructor.nombre}\n" +
-          f"Departamento: {e.tarea.curso.departamento.nombre}\n" +
-          "--------------------------------------------------------")
+    if(e.tarea.curso.departamento.nombre == "Arte"):
+        print(f"Tarea: {e.tarea.titulo}\n" +
+              f"Hecha por: {e.estudiante.nombre}\n" +
+              f"Calificación: {e.calificacion}\n" +
+              f"Instructor: {e.tarea.curso.instructor.nombre}\n" +
+              f"Departamento: {e.tarea.curso.departamento.nombre}\n" +
+              "--------------------------------------------------------")

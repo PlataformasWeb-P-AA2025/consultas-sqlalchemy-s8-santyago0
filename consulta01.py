@@ -25,15 +25,21 @@ session = Session()
 # estudiante, calificación, nombre de instructor y nombre del departamento
 
 # entregas = session.query(Entrega).join(Tarea).join(Curso).join(Departamento).filter(Departamento.nombre == "Arte").all()
+# Obtenemos todos los registros de Entrega
 entregas = session.query(Entrega).all()
 
 print("Consulta 01")
 
 for e in entregas:
+    # Filtramos los departamentos que son de Arte
     if(e.tarea.curso.departamento.nombre == "Arte"):
-        print(f"Tarea: {e.tarea.titulo}\n" +
-              f"Hecha por: {e.estudiante.nombre}\n" +
-              f"Calificación: {e.calificacion}\n" +
-              f"Instructor: {e.tarea.curso.instructor.nombre}\n" +
-              f"Departamento: {e.tarea.curso.departamento.nombre}\n" +
+        print(f"Tarea: {e.tarea.titulo}\n" + # # Desde el objeto tarea de Entrega obtenemos el titulo de la tarea
+              f"Hecha por: {e.estudiante.nombre}\n" + # Desde el objeto estudiante de Entrega obtenemos en nombre del estudiante
+              f"Calificación: {e.calificacion}\n" + # Atributo calificacion
+              f"Instructor: {e.tarea.curso.instructor.nombre}\n" + # Desde el objeto tarea de Entregas armamos el camino hacia
+                                                                   # el cusro (objeto de Tarea), al instructor (objeto de Curso)
+                                                                   # y obtenemos el nombre del instructor
+              f"Departamento: {e.tarea.curso.departamento.nombre}\n" + # Desde el objeto tarea de Entregas armamos el camino hacia
+                                                                       # el cusro (objeto de Tarea), al departamento (objeto de Curso)
+                                                                       # y obtenemos el nombre del departamento
               "--------------------------------------------------------")
